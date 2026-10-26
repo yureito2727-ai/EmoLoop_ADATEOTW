@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Emo Loop</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container py-5 text-center">
-        <h1>Chào mừng đến với Emo Loop</h1>
-        <p>Cửa hàng đồ lưu niệm và game Visual Novel</p>
+@extends('layouts.app')
+
+@section('title', 'Emo Loop')
+
+@section('content')
+<section class="hero" style="background-image: linear-gradient(rgba(0,0,0,.28), rgba(0,0,0,.38)), url('{{ asset('images/home-bg.jpg') }}');">
+    <div class="hero-content">
+        <h1 class="hero-title">Emo Loop</h1>
+        <p class="hero-tagline">Chơi game, nhận mã giảm giá cho đồ lưu niệm của chính bạn.</p>
+        <a href="{{ url('/play') }}" class="btn-play">Play</a>
     </div>
-</body>
-</html>
+</section>
+@endsection

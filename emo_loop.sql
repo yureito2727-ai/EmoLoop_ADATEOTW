@@ -4,9 +4,41 @@ CREATE DATABASE IF NOT EXISTS emo_loop
 
 USE emo_loop;
 
-ALTER TABLE users
-  ADD COLUMN vai_tro VARCHAR(20) NOT NULL DEFAULT 'user' AFTER password,
-  ADD COLUMN so_dien_thoai VARCHAR(20) NULL AFTER vai_tro;
+SET @da_co = (
+  SELECT COUNT(*)
+  FROM information_schema.COLUMNS
+  WHERE TABLE_SCHEMA = 'emo_loop'
+    AND TABLE_NAME = 'users'
+    AND COLUMN_NAME = 'vai_tro'
+);
+
+SET @lenh = IF(
+  @da_co = 0,
+  'ALTER TABLE users ADD COLUMN vai_tro VARCHAR(20) NOT NULL DEFAULT ''user'' AFTER password, ADD COLUMN so_dien_thoai VARCHAR(20) NULL AFTER vai_tro',
+  'SELECT 1'
+);
+
+PREPARE lenh_users FROM @lenh;
+EXECUTE lenh_users;
+DEALLOCATE PREPARE lenh_users;
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+DROP TABLE IF EXISTS nguoi_dung_nhan_vat;
+DROP TABLE IF EXISTS nguoi_dung_vat_pham;
+DROP TABLE IF EXISTS nguoi_dung_ma_giam;
+DROP TABLE IF EXISTS tien_trinh;
+DROP TABLE IF EXISTS don_hang_chi_tiet;
+DROP TABLE IF EXISTS don_hang;
+DROP TABLE IF EXISTS gio_hang;
+DROP TABLE IF EXISTS ma_giam;
+DROP TABLE IF EXISTS san_pham;
+DROP TABLE IF EXISTS vat_pham;
+DROP TABLE IF EXISTS chuong;
+DROP TABLE IF EXISTS nhan_vat;
+DROP TABLE IF EXISTS loai_san_pham;
+
+SET FOREIGN_KEY_CHECKS = 1;
 
 CREATE TABLE loai_san_pham (
   id          BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -14,17 +46,6 @@ CREATE TABLE loai_san_pham (
   mo_ta       TEXT NULL,
   created_at  DATETIME NULL,
   updated_at  DATETIME NULL,
-  PRIMARY KEY (id)
-) ENGINE=InnoDB;
-
-CREATE TABLE chuong (
-  id           BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  tieu_de      VARCHAR(255) NOT NULL,
-  thu_tu       INT NOT NULL,
-  noi_dung     JSON NOT NULL,
-  da_xuat_ban  BOOLEAN NOT NULL DEFAULT FALSE,
-  created_at   DATETIME NULL,
-  updated_at   DATETIME NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
@@ -37,6 +58,21 @@ CREATE TABLE nhan_vat (
   created_at  DATETIME NULL,
   updated_at  DATETIME NULL,
   PRIMARY KEY (id)
+) ENGINE=InnoDB;
+
+CREATE TABLE chuong (
+  id           BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  nhan_vat_id  BIGINT UNSIGNED NOT NULL,
+  tieu_de      VARCHAR(255) NOT NULL,
+  thu_tu       INT NOT NULL,
+  noi_dung     JSON NOT NULL,
+  da_xuat_ban  BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at   DATETIME NULL,
+  updated_at   DATETIME NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_chuong_nhan_vat_thu_tu (nhan_vat_id, thu_tu),
+  CONSTRAINT fk_chuong_nhan_vat
+    FOREIGN KEY (nhan_vat_id) REFERENCES nhan_vat (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE vat_pham (
@@ -103,7 +139,7 @@ CREATE TABLE gio_hang (
   created_at   DATETIME NULL,
   updated_at   DATETIME NULL,
   PRIMARY KEY (id),
-  CONSTRAINT fk_gio_hang_users
+  CONSTRAINT fk_gio_hang_user
     FOREIGN KEY (user_id) REFERENCES users (id),
   CONSTRAINT fk_gio_hang_san_pham
     FOREIGN KEY (san_pham_id) REFERENCES san_pham (id)
@@ -124,7 +160,7 @@ CREATE TABLE don_hang (
   created_at              DATETIME NULL,
   updated_at              DATETIME NULL,
   PRIMARY KEY (id),
-  CONSTRAINT fk_don_hang_users
+  CONSTRAINT fk_don_hang_user
     FOREIGN KEY (user_id) REFERENCES users (id),
   CONSTRAINT fk_don_hang_ma_giam
     FOREIGN KEY (ma_giam_id) REFERENCES ma_giam (id)
@@ -148,6 +184,7 @@ CREATE TABLE don_hang_chi_tiet (
 CREATE TABLE tien_trinh (
   id            BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   user_id       BIGINT UNSIGNED NOT NULL,
+  nhan_vat_id   BIGINT UNSIGNED NOT NULL,
   chuong_id     BIGINT UNSIGNED NOT NULL,
   giai_doan     INT NOT NULL,
   cot_moc       VARCHAR(50) NOT NULL,
@@ -159,9 +196,11 @@ CREATE TABLE tien_trinh (
   created_at    DATETIME NULL,
   updated_at    DATETIME NULL,
   PRIMARY KEY (id),
-  UNIQUE KEY uq_tien_trinh_users (user_id),
-  CONSTRAINT fk_tien_trinh_users
+  UNIQUE KEY uq_tien_trinh_user_nhan_vat (user_id, nhan_vat_id),
+  CONSTRAINT fk_tien_trinh_user
     FOREIGN KEY (user_id) REFERENCES users (id),
+  CONSTRAINT fk_tien_trinh_nhan_vat
+    FOREIGN KEY (nhan_vat_id) REFERENCES nhan_vat (id),
   CONSTRAINT fk_tien_trinh_chuong
     FOREIGN KEY (chuong_id) REFERENCES chuong (id)
 ) ENGINE=InnoDB;
@@ -174,7 +213,7 @@ CREATE TABLE nguoi_dung_ma_giam (
   ngay_nhan     DATETIME NOT NULL,
   ngay_su_dung  DATETIME NULL,
   PRIMARY KEY (id),
-  CONSTRAINT fk_ndmg_users
+  CONSTRAINT fk_ndmg_user
     FOREIGN KEY (user_id) REFERENCES users (id),
   CONSTRAINT fk_ndmg_ma_giam
     FOREIGN KEY (ma_giam_id) REFERENCES ma_giam (id)
@@ -186,7 +225,7 @@ CREATE TABLE nguoi_dung_vat_pham (
   vat_pham_id  BIGINT UNSIGNED NOT NULL,
   ngay_nhan    DATETIME NOT NULL,
   PRIMARY KEY (id),
-  CONSTRAINT fk_ndvp_users
+  CONSTRAINT fk_ndvp_user
     FOREIGN KEY (user_id) REFERENCES users (id),
   CONSTRAINT fk_ndvp_vat_pham
     FOREIGN KEY (vat_pham_id) REFERENCES vat_pham (id)
@@ -198,7 +237,7 @@ CREATE TABLE nguoi_dung_nhan_vat (
   nhan_vat_id      BIGINT UNSIGNED NOT NULL,
   ngay_chinh_phuc  DATETIME NOT NULL,
   PRIMARY KEY (id),
-  CONSTRAINT fk_ndnv_users
+  CONSTRAINT fk_ndnv_user
     FOREIGN KEY (user_id) REFERENCES users (id),
   CONSTRAINT fk_ndnv_nhan_vat
     FOREIGN KEY (nhan_vat_id) REFERENCES nhan_vat (id)
