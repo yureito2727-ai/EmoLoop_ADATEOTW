@@ -24,7 +24,13 @@
                     <a href="{{ url('/gio-hang') }}" class="pill pill-yellow">
                         <i class="bi bi-cart3"></i> Giỏ hàng
                     </a>
-                    <a href="{{ url('/tai-khoan') }}" class="avatar" title="{{ auth()->user()->name }}">AVT<br>USER</a>
+                       <button type="button" class="avatar" data-bs-toggle="modal" data-bs-target="#accountModal" title="{{ auth()->user()->name }}" aria-label="Tài khoản">
+                        @if (auth()->user()->avatar)
+                        <img src="{{ asset('storage/'.auth()->user()->avatar) }}" alt="Avatar">
+                        @else
+                        <span class="avatar-letter">{{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 1)) }}</span>
+                        @endif
+                        </button>
                     <form method="POST" action="{{ url('/logout') }}" class="m-0">
                         @csrf
                         <button type="submit" class="pill pill-outline">Đăng xuất</button>
@@ -88,5 +94,8 @@
 </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    @auth
+    @include('partials.account-modal')
+    @endauth
 </body>
 </html>
