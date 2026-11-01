@@ -1,11 +1,17 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GioHangController;
 
 Route::get('/', function () {
     return view('home');
 });
+
+Route::get('/shop', [ProductController::class, 'index'])->name('shop');
+
+Route::get('/san-pham/{sanPham}', [ProductController::class, 'show'])->name('san-pham.show');
 
 Route::middleware('auth')->group(function () {
     Route::patch('/tai-khoan', [ProfileController::class, 'update'])->name('tai-khoan.update');
@@ -14,3 +20,11 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::middleware('auth')->group(function () {
+    Route::get('/gio-hang', [GioHangController::class, 'index'])->name('gio-hang.index');
+    Route::post('/gio-hang', [GioHangController::class, 'store'])->name('gio-hang.store');
+    Route::patch('/gio-hang/{gioHang}', [GioHangController::class, 'update'])->name('gio-hang.update');
+    Route::delete('/gio-hang/{gioHang}', [GioHangController::class, 'destroy'])->name('gio-hang.destroy');
+    Route::delete('/gio-hang', [GioHangController::class, 'clear'])->name('gio-hang.clear');
+});

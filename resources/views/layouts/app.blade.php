@@ -24,7 +24,9 @@
                 @auth
                     <a href="{{ url('/gio-hang') }}" class="pill pill-yellow">
                         <i class="bi bi-cart3"></i> Giỏ hàng
-                    </a>
+                        @php $soGio = \App\Models\GioHang::where('user_id', auth()->id())->count(); @endphp
+                        <span class="cart-badge" id="cartBadge" @if(!$soGio) style="display:none" @endif>{{ $soGio }}</span>
+                        </a>
                        <button type="button" class="avatar" data-bs-toggle="modal" data-bs-target="#accountModal" title="{{ auth()->user()->name }}" aria-label="Tài khoản">
                         @if (auth()->user()->avatar)
                         <img src="{{ asset('storage/'.auth()->user()->avatar) }}" alt="Avatar">

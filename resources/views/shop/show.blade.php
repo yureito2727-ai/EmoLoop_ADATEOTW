@@ -117,5 +117,66 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/san-pham.js') }}"></script>
+<script>
+(function () {
+    var add = document.getElementById('pdAddCart');
+    var buy = document.getElementById('pdBuy');
+    var msg = document.getElementById('pdAdded');
+    var qty = document.getElementById('pdQty');
+    if (!add || !buy) { return; }
+
+    var token = document.querySelector('meta[name="csrf-token"]').content;
+    var id = {{ $sp->id }};
+
+    function post(goCart) {
+        add.disabled = true;
+        buy.disabled = true;
+
+        fetch('{{ route('gio-hang.store') }}', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ san_pham_id: id, so_luong: parseInt(qty.textContent, 10) || 1 })
+        }).then(function (r) {
+            if (r.status === 401) {
+                window.location.href = '{{ url('/login') }}';
+                return null;
+            }
+            return r.json().then(function (d) { return { ok: r.ok, d: d }; });
+        }).then(function (res) {
+            if (!res) { return; }
+            if (!res.ok) {
+                msg.textContent = res.d.message || 'Không thêm được vào giỏ hàng.';
+                return;
+            }
+            var badge = document.getElementById('cartBadge');
+            if (badge) { badge.textContent = res.d.tong; badge.style.display = ''; }
+            if (goCart) {
+                window.location.href = res.d.url;
+                return;
+            }
+            msg.textContent = 'Đã thêm ' + qty.textContent + ' × ' + {!! json_encode($sp->ten) !!} + ' vào giỏ hàng.';
+        }).catch(function () {
+            msg.textContent = 'Có lỗi xảy ra, thử lại sau.';
+        }).then(function () {
+            add.disabled = false;
+            buy.disabled = false;
+        });
+    }
+
+    add.addEventListener('click', function (e) {
+        e.stopImmediatePropagation();
+        post(false);
+    }, true);
+
+    buy.addEventListener('click', function (e) {
+        e.stopImmediatePropagation();
+        post(true);
+    }, true);
+})();
+</script>
 @endpush
+
