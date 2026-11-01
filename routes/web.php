@@ -28,3 +28,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/gio-hang/{gioHang}', [GioHangController::class, 'destroy'])->name('gio-hang.destroy');
     Route::delete('/gio-hang', [GioHangController::class, 'clear'])->name('gio-hang.clear');
 });
+
+Route::middleware('auth')->patch('/san-pham/{sanPham}', [ProductController::class, 'update'])->name('san-pham.update');

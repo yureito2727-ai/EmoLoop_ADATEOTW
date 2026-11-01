@@ -58,4 +58,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(DiaChi::class);
     }
+
+        public function laQuanTri(): bool
+    {
+        return $this->vai_tro === 'admin';
+    }
 }

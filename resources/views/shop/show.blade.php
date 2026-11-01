@@ -106,15 +106,36 @@
 
             @if ($sp->mo_ta)
                 <article class="pd-story">
-                    <h2>Câu chuyện</h2>
+                    <h2>Mô tả sản phẩm</h2>
                     <p>{!! nl2br(e($sp->mo_ta)) !!}</p>
                 </article>
             @endif
         </section>
 
-    </div>
+       </div>
+    @if ($goiY->isNotEmpty())
+        <section class="pd-rec" aria-labelledby="pdRecTitle">
+            <h2 id="pdRecTitle">Có thể bạn cũng thích</h2>
+            <div class="pd-rec-grid">
+                @foreach ($goiY as $item)
+                    <a class="pd-rec-card" href="{{ route('san-pham.show', $item) }}">
+                        <div class="pd-rec-img">
+                            @if ($item->anh)
+                                <img src="{{ asset('storage/' . $item->anh) }}" alt="{{ $item->ten }}" loading="lazy">
+                            @else
+                                <span>Ảnh</span>
+                            @endif
+                        </div>
+                        <h3>{{ $item->ten }}</h3>
+                        <p>{{ number_format($item->gia, 0, ',', '.') }}đ</p>
+                    </a>
+                @endforeach
+            </div>
+        </section>
+    @endif
 </div>
 @endsection
+
 
 @push('scripts')
 <script>
