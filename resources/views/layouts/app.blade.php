@@ -17,9 +17,11 @@
     <header class="site-header">
         <nav class="site-nav">
             <div class="nav-left">
+                <a href="{{ url('/') }}" class="pill pill-soft">HOME</a>
                 <a href="{{ url('/shop') }}" class="pill pill-soft">SHOP</a>
                 <a href="{{ url('/gioi-thieu') }}" class="pill pill-soft">Giới thiệu</a>
             </div>
+            
             <div class="nav-right">
                 @auth
                     <a href="{{ url('/gio-hang') }}" class="pill pill-yellow">
