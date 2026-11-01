@@ -11,6 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @stack('styles')
 </head>
 <body class="@yield('body_class')">
     <header class="site-header">
@@ -64,8 +65,8 @@
             <ul>
                 <li><a href="{{ url('/shop') }}">Tất cả sản phẩm</a></li>
                 <li><a href="#">Móc khóa</a></li>
-                <li><a href="#">Standee</a></li>
-                <li><a href="#">Mã giảm giá</a></li>
+                <li><a href="#">Vật Phẩm Trưng Bày</a></li>
+                <li><a href="#">Mô Hình Nhân vật</a></li>
             </ul>
         </div>
         <div>
@@ -94,6 +95,7 @@
 </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    @stack('scripts')
     @auth
     @include('partials.account-modal')
     @endauth
