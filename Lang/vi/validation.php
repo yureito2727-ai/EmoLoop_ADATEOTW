@@ -2,9 +2,11 @@
 
 return [
     'required' => ':attribute không được để trống.',
+    'required_if' => ':attribute không được để trống.',
     'string' => ':attribute không hợp lệ.',
     'email' => ':attribute không hợp lệ.',
     'regex' => ':attribute không hợp lệ.',
+    'in' => ':attribute không hợp lệ.',
     'lowercase' => ':attribute phải viết thường.',
     'unique' => ':attribute đã được sử dụng.',
     'confirmed' => 'Mật khẩu nhập lại chưa khớp.',
@@ -25,5 +27,11 @@ return [
         'avatar' => 'Ảnh đại diện',
         'password' => 'Mật khẩu',
         'password_confirmation' => 'Mật khẩu nhập lại',
+        'ten_nguoi_nhan' => 'Tên người nhận',
+        'sdt_nguoi_nhan' => 'Số điện thoại người nhận',
+        'quoc_gia' => 'Quốc gia',
+        'tinh_thanh' => 'Tỉnh / Thành phố',
+        'phuong_xa' => 'Phường / Xã',
+        'dia_chi_cu_the' => 'Địa chỉ cụ thể',
     ],
 ];

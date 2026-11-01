@@ -640,3 +640,45 @@ body {
     text-align: center;
     margin: 0;
 }
+
+.auth-field select {
+    font: inherit;
+    color: #f5f3f4;
+    background: #000;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 12px 14px;
+    width: 100%;
+}
+
+.auth-field select:focus {
+    outline: none;
+    border-color: var(--pink);
+    box-shadow: 0 0 0 3px rgba(255, 95, 194, .25);
+}
+
+.auth-field.invalid select {
+    border-color: var(--err);
+}
+
+.auth-field select option {
+    background: var(--surface);
+    color: #f5f3f4;
+}
+
+.acc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.acc-help {
+    font-size: .78rem;
+    color: var(--muted);
+}
+
+@media (max-width: 575px) {
+    .acc-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -54,4 +54,8 @@ class User extends Authenticatable
         return $this->belongsToMany(NhanVat::class, 'nguoi_dung_nhan_vat', 'user_id', 'nhan_vat_id')
             ->withPivot('ngay_chinh_phuc');
     }
+        public function diaChi(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(DiaChi::class);
+    }
 }

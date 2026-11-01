@@ -64,6 +64,16 @@
 
                 <hr class="acc-divider">
 
+                @include('partials.account-address')
+
+                <hr class="acc-divider">
+
+                <form method="POST" action="{{ route('tai-khoan.mat-khau') }}" class="auth-form" novalidate>
+                    
+                </form>
+
+                <hr class="acc-divider">
+
                 <form method="POST" action="{{ route('tai-khoan.mat-khau') }}" class="auth-form" novalidate>
                     @csrf
                     @method('PUT')
