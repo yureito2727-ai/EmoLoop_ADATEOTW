@@ -134,10 +134,12 @@
         </section>
     @endif
 </div>
+<div class="pd-toast" id="pdToast" role="status"></div>
 @endsection
 
 
 @push('scripts')
+<script src="{{ asset('js/san-pham.js') }}"></script>
 <script>
 (function () {
     var add = document.getElementById('pdAddCart');

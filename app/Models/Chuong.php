@@ -24,4 +24,11 @@ class Chuong extends Model
     {
         return $this->hasMany(TienTrinh::class);
     }
+
+    public function nhanVat()
+    {
+        return $this->belongsTo(NhanVat::class, 'nhan_vat_id');
+    }
+
+    
 }

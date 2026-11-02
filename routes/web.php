@@ -4,6 +4,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GioHangController;
+use App\Http\Controllers\GameEngineController;
 
 Route::get('/', function () {
     return view('home');
@@ -30,3 +31,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->patch('/san-pham/{sanPham}', [ProductController::class, 'update'])->name('san-pham.update');
+Route::middleware('auth')->post('/game/chuong/{chuong}/vao', [GameEngineController::class, 'vaoChuong'])
+    ->name('game.vao');
+Route::middleware('auth')->get('/game/chuong/{chuong}', [GameEngineController::class, 'trangChoi'])
+    ->name('game.choi');

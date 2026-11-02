@@ -1,0 +1,14 @@
+.game-wrap { max-width: 900px; margin: 24px auto; padding: 0 16px; }
+.game-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+.game-title { font-weight: 800; font-size: 20px; }
+.game-diem { display: flex; gap: 8px; flex-wrap: wrap; }
+.game-diem span { border-radius: 999px; padding: 4px 14px; font-weight: 800; font-size: 14px; background: #c1dbff; color: #2a0f2e; }
+.game-stage { min-height: 360px; display: grid; place-items: end center; border-radius: 24px; background: linear-gradient(180deg, #fff0f8, #ffe9d6); overflow: hidden; }
+.game-stage img { max-height: 420px; max-width: 100%; object-fit: contain; }
+.game-stage img.thieu { font-size: 14px; color: #6f5a75; padding: 24px; }
+.game-box { margin-top: 14px; border: 3px solid #ff6ec7; border-radius: 24px; padding: 16px 20px; background: #fff; color: #2a0f2e; }
+.game-name { font-weight: 800; color: #e0262d; margin-bottom: 4px; min-height: 1.2em; }
+.game-box p { margin: 0 0 10px; font-size: 17px; }
+.game-choices { display: flex; flex-direction: column; gap: 8px; }
+.game-choices button { text-align: left; border: 2px solid #ffd95a; background: #fff8d6; border-radius: 16px; padding: 10px 16px; font-weight: 700; cursor: pointer; }
+.game-choices button:hover { background: #ffd95a; }

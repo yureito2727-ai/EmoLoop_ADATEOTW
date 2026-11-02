@@ -25,4 +25,9 @@ class NhanVat extends Model
         return $this->belongsToMany(User::class, 'nguoi_dung_nhan_vat', 'nhan_vat_id', 'user_id')
             ->withPivot('ngay_chinh_phuc');
     }
+
+    public function chuongs()
+   {
+    return $this->hasMany(Chuong::class, 'nhan_vat_id')->orderBy('thu_tu');
+   }
 }

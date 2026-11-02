@@ -7,11 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class TienTrinh extends Model
 {
     protected $table = 'tien_trinh';
-
-    protected $fillable = [
-        'user_id', 'chuong_id', 'giai_doan', 'cot_moc',
-        'diem_hy', 'diem_no', 'diem_ai', 'diem_o', 'anh_hien_tai',
-    ];
+protected $fillable = [
+    'user_id', 'nhan_vat_id', 'chuong_id', 'giai_doan', 'cot_moc',
+    'diem_hy', 'diem_no', 'diem_ai', 'diem_o', 'anh_hien_tai',
+];
 
     public function user()
     {
@@ -22,4 +21,10 @@ class TienTrinh extends Model
     {
         return $this->belongsTo(Chuong::class);
     }
+
+    public function nhanVat()
+    {
+    return $this->belongsTo(NhanVat::class, 'nhan_vat_id');
+    }
+
 }
