@@ -11,4 +11,72 @@
 .game-box p { margin: 0 0 10px; font-size: 17px; }
 .game-choices { display: flex; flex-direction: column; gap: 8px; }
 .game-choices button { text-align: left; border: 2px solid #ffd95a; background: #fff8d6; border-radius: 16px; padding: 10px 16px; font-weight: 700; cursor: pointer; }
-.game-choices button:hover { background: #ffd95a; }
+.game-choices button:hover { background: #ffd95a; } 
+
+/* ===== Màn tổng kết ===== */
+body.tk-mode main { background: #000; color: #f5f3f4; }
+
+.tk-page {
+  --tk-grad: linear-gradient(90deg, #ff5fc2 0%, #ff8aa0 35%, #ffb07f 65%, #ffdd57 100%);
+  --tk-line: #2a2a2e; --tk-muted: #a09ca2;
+  max-width: 1080px; margin: 0 auto; padding: 32px 24px 24px; position: relative;
+}
+.tk-head { display: grid; grid-template-columns: 48px 1fr auto; align-items: center; gap: 16px; margin-bottom: 28px; }
+.tk-back { width: 48px; height: 48px; border-radius: 50%; border: 0; background: var(--tk-grad); display: grid; place-items: center; color: #1a1a1a; cursor: pointer; }
+.tk-back:hover { filter: brightness(1.08); }
+.tk-back svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.tk-title { text-align: center; }
+.tk-title h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.1; margin: 0; font-weight: 800; display: inline-block; background: var(--tk-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.tk-title p { color: var(--tk-muted); margin: 4px 0 0; font-size: .95rem; }
+.tk-menu { background: #0e0e10; border: 1px solid var(--tk-line); color: #f5f3f4; border-radius: 20px; padding: 10px 20px; font-weight: 600; font-size: .9rem; cursor: pointer; }
+.tk-menu:hover { border-color: #ffdd57; color: #ffdd57; }
+
+.tk-card { background: #0e0e10; border: 1px solid var(--tk-line); border-radius: 24px; position: relative; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 40px; padding: 36px 32px 32px; }
+.tk-card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; border-radius: 24px 24px 0 0; background: var(--tk-grad); }
+.tk-card h2 { font-size: .95rem; margin: 0 0 18px; font-weight: 700; }
+
+.tk-chart { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; align-items: end; height: 260px; border-bottom: 2px solid var(--tk-line); padding: 0 8px; }
+.tk-col { display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; gap: 6px; }
+.tk-val { font-weight: 700; font-size: .9rem; }
+.tk-bar { width: min(100%, 56px); border-radius: 12px 12px 0 0; height: 0; transition: height .7s cubic-bezier(.2, .8, .2, 1); }
+.tk-labels { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; padding: 10px 8px 0; text-align: center; font-weight: 700; font-size: .9rem; }
+.tk-c-hy { background: #ffdd57; }
+.tk-c-no { background: #ff8aa0; }
+.tk-c-ai { background: #ff5fc2; }
+.tk-c-o  { background: #8ec5ff; }
+
+.tk-stats { display: grid; align-content: start; }
+.tk-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--tk-line); font-size: .95rem; }
+.tk-row:last-child { border-bottom: 0; }
+.tk-row > span:first-child { color: var(--tk-muted); }
+.tk-row b { font-weight: 700; }
+.tk-tags { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.tk-tag { background: rgba(255, 95, 194, .14); border: 1px solid rgba(255, 95, 194, .4); color: #ff5fc2; border-radius: 999px; padding: 4px 14px; font-size: .8rem; font-weight: 700; }
+.tk-none { color: var(--tk-muted); font-size: .9rem; }
+.tk-need { display: block; font-size: .8rem; color: var(--tk-muted); font-weight: 400; }
+.tk-result { font-weight: 800; font-size: 1.4rem; }
+.tk-result.pass { color: #7be0a6; }
+.tk-result.fail { color: #ff7a8a; }
+
+.tk-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+.tk-btn { font-weight: 700; border-radius: 16px; padding: 16px; cursor: pointer; border: 1px solid transparent; text-align: center; color: #1a1a1a; }
+.tk-btn.ghost { background: #0e0e10; border-color: var(--tk-line); color: #f5f3f4; }
+.tk-btn.ghost:hover { border-color: #ffdd57; color: #ffdd57; }
+.tk-btn.pink { background: #ff5fc2; }
+.tk-btn.main { background: var(--tk-grad); }
+.tk-btn.pink:hover, .tk-btn.main:hover { filter: brightness(1.08); }
+.tk-btn:disabled { filter: grayscale(1) brightness(.55); cursor: not-allowed; }
+
+.tk-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: #0e0e10; border: 1px solid #ffdd57; color: #ffdd57; border-radius: 14px; padding: 10px 18px; font-size: .9rem; display: none; z-index: 10; }
+.tk-toast.show { display: block; }
+
+@media (max-width: 820px) {
+  .tk-page { padding: 24px 16px 16px; }
+  .tk-card { grid-template-columns: 1fr; gap: 28px; padding: 28px 20px 20px; }
+  .tk-actions { grid-template-columns: 1fr; }
+  .tk-head { grid-template-columns: 44px 1fr auto; gap: 10px; }
+  .tk-back { width: 44px; height: 44px; }
+  .tk-chart { height: 220px; gap: 10px; }
+  .tk-labels { gap: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { .tk-bar { transition: none; } }

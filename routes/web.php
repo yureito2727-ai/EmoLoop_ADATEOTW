@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GioHangController;
 use App\Http\Controllers\GameEngineController;
+use App\Http\Controllers\GameController;
 
 Route::get('/', function () {
     return view('home');
@@ -35,3 +36,5 @@ Route::middleware('auth')->post('/game/chuong/{chuong}/vao', [GameEngineControll
     ->name('game.vao');
 Route::middleware('auth')->get('/game/chuong/{chuong}', [GameEngineController::class, 'trangChoi'])
     ->name('game.choi');
+Route::middleware('auth')->get('/game', [GameController::class, 'chonNhanVat'])->name('game.nhan-vat');
+Route::middleware('auth')->get('/game/nhan-vat/{nhanVat}', [GameController::class, 'danhSachChuong'])->name('game.chuong-ds');
