@@ -17,8 +17,9 @@ class EngelSeeder extends Seeder
 
         // Nội dung mẫu: 2 giai đoạn, mỗi giai đoạn 1 cột mốc nhỏ + 1 cột mốc lớn
         $noiDung = [
+            'nguong_bieu_lo' => ['hy' => 8, 'no' => 8, 'ai' => 8, 'o' => 8],
             'diem_khoi_dau' => ['hy' => 5, 'no' => 0, 'ai' => 0, 'o' => 0],
-            'dieu_kien'     => ['hy' => 15],
+            'dieu_kien'     => ['hy' => 10],
             'giai_doan'     => [
                 [
                     'id' => 1,

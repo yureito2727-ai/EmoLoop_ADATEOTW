@@ -30,7 +30,8 @@ class GameEngineController extends Controller
         );
         $diem = array_map(fn ($v) => max(0, (int) $v), $diem);
 
-        $anh = ChonAnh::chon($diem, $chuong->nhanVat->thu_muc);
+        $nguong = ChonAnh::nguong($noiDung);
+        $anh = ChonAnh::chon($diem, $chuong->nhanVat->thu_muc, $nguong);
         $cotMocDau = $noiDung['giai_doan'][0]['cot_moc'][0]['id'] ?? '';
 
         if (! $tt) {
@@ -61,6 +62,7 @@ class GameEngineController extends Controller
             'thu_muc'  => $chuong->nhanVat->thu_muc,
             'diem'     => $diem,
             'anh'      => $anh,
+            'nguong'   => $nguong,
             'noi_dung' => $noiDung,
         ]);
     }

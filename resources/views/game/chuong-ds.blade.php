@@ -39,10 +39,7 @@
                     @if ($khoa)
                         <button class="cc-btn" type="button" disabled>Khóa</button>
                     @else
-                        <form method="POST" action="{{ route('game.vao', $chuong) }}" class="m-0">
-                            @csrf
-                            <button class="cc-btn" type="submit">{{ $dangMo ? 'Vào chơi' : 'Chơi lại' }}</button>
-                        </form>
+                        <a class="cc-btn" href="{{ route('game.choi', $chuong) }}">{{ $dangMo ? 'Vào chơi' : 'Chơi lại' }}</a>
                     @endif
                 </article>
             @empty

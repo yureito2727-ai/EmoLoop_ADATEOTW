@@ -1063,3 +1063,13 @@ body {
         transition: none;
     }
 }
+
+a.cc-btn {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+}
+
+a.cc-btn:hover {
+    color: #1a1a1a;
+}
