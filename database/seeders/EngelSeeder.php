@@ -15,22 +15,27 @@ class EngelSeeder extends Seeder
             ['ten' => 'Engel', 'mo_ta' => 'Bạn cùng lớp (tên tạm)']
         );
 
-        // Nội dung mẫu: 2 giai đoạn, mỗi giai đoạn 1 cột mốc nhỏ + 1 cột mốc lớn
         $noiDung = [
             'nguong_bieu_lo' => ['hy' => 8, 'no' => 8, 'ai' => 8, 'o' => 8],
             'diem_khoi_dau' => ['hy' => 5, 'no' => 0, 'ai' => 0, 'o' => 0],
             'dieu_kien'     => ['hy' => 10],
+            'nen'           => 'backgrounds/lop-hoc.jpg',
             'giai_doan'     => [
                 [
                     'id' => 1,
                     'cot_moc' => [
                         [
                             'id' => 'g1-nho1', 'loai' => 'nho',
+                            'nen' => 'backgrounds/lop-hoc.jpg',
                             'thoai' => [[
                                 'nhan_vat' => 'engel',
                                 'text' => 'Cậu cũng thấy hôm nay quen quen nhỉ?',
                                 'lua_chon' => [
-                                    ['text' => 'Ừ, giống hệt hôm qua', 'diem' => ['hy' => 4, 'ai' => 1]],
+                                    [
+                                        'text' => 'Ừ, giống hệt hôm qua',
+                                        'diem' => ['hy' => 4, 'ai' => 1],
+                                        'nen' => 'backgrounds/hanh-lang.jpg',
+                                    ],
                                     ['text' => 'Không, chắc cậu nhầm', 'diem' => ['no' => 1, 'o' => 2]],
                                 ],
                             ]],

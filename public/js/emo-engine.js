@@ -82,6 +82,12 @@
     el.anh.src = goc + duongDan;
   }
 
+  // Đổi ảnh nền theo JSON (noi_dung.nen, cot_moc.nen, lua_chon.nen). Không có đường dẫn thì giữ nền hiện tại.
+  function doiNen(duongDan) {
+    if (!duongDan) return;
+    g.style.backgroundImage = `url(${g.dataset.anhGoc}/${duongDan})`;
+  }
+
   function dungBieuDo() {
     el.bieuDo.innerHTML =
       '<div class="gm-bars">' + THU_TU.map(k =>
@@ -174,6 +180,7 @@
       t.lua_chon.forEach(lc => {
         taoNut(lc.text, () => {
           congDiem(lc.diem || {});
+          doiNen(lc.nen);
           st.k++;
           buoc();
         });
@@ -197,6 +204,7 @@
     }
 
     capNhatTienTrinh(viTriHienTai());
+    if (st.k === 0) doiNen(cm.nen); // chỉ đổi lúc vừa vào cột mốc, không đè nền của lựa chọn ở các câu sau
 
     if (cm.loai === 'lon') { // cột mốc lớn: chọn lại ảnh theo điểm hiện tại
       const anhMoi = chonAnh(st.diem, st.thuMuc, st.nguong);
@@ -361,6 +369,7 @@
       dungTienTrinh();
       capNhatDiem();
       hienAnh(st.anh);
+      doiNen(d.noi_dung && d.noi_dung.nen); // nền lúc vào chương
       buoc();
     } catch (e) {
       el.thoai.textContent = 'Lỗi kết nối, hãy tải lại trang.';

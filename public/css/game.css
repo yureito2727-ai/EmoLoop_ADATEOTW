@@ -208,4 +208,57 @@ body.tk-mode main { background: #000; color: #f5f3f4; }
   .tk-chart { height: 220px; gap: 10px; }
   .tk-labels { gap: 10px; }
 }
-@media (prefers-reduced-motion: reduce) { .tk-bar { transition: none; } }
+
+@media (min-width: 981px) and (min-height: 501px) {
+  .gm {
+    position: relative;
+    overflow: hidden;
+    height: max(calc(100dvh - 100px), 820px);
+    --gm-nv-cao: 92%;
+  }
+
+  .gm-wrap {
+    position: relative;
+    height: 100%;
+  }
+
+  .gm-stage {
+    position: static;
+  }
+
+  .gm-chart {
+    top: 92px;
+    left: 28px;
+  }
+
+  .gm-top,
+  .gm-side {
+    position: relative;
+    z-index: 2;
+  }
+
+  .gm-char {
+    position: static;
+  }
+
+  .gm #anh-nv {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    z-index: 1;
+    transform: translateX(-50%);
+    height: var(--gm-nv-cao);
+    width: auto;
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
+    object-position: center bottom;
+  }
+}
+
+#game.gm {
+    background-color: #1a1a1a;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
