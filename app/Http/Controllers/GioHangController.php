@@ -92,7 +92,12 @@ class GioHangController extends Controller
     $tong = GioHang::where('user_id', $request->user()->id)->count();
 
     if ($request->expectsJson()) {
-        return response()->json(['ok' => true, 'tong' => $tong, 'url' => route('gio-hang.index')]);
+        return response()->json([
+            'ok' => true,
+            'tong' => $tong,
+            'url' => route('gio-hang.index'),
+            'thanh_toan_url' => route('thanh-toan.index', ['chon' => [$row->id]]),
+        ]);
     }
 
     return redirect()->route('gio-hang.index')->with('status', 'Đã thêm vào giỏ hàng.');

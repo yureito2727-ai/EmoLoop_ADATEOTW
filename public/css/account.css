@@ -1,0 +1,75 @@
+/* ===== Trang tài khoản ===== */
+.acct-wrap { max-width: 1080px; margin: 0 auto; padding: 32px 16px 64px; display: grid; grid-template-columns: 270px 1fr; gap: 24px; align-items: start; }
+.acct-side, .acct-card { background: rgba(14, 11, 18, .86); border: 1px solid rgba(255, 255, 255, .08); border-radius: 18px; backdrop-filter: blur(6px); }
+.acct-side { padding: 20px; position: sticky; top: 90px; }
+.acct-who { display: flex; align-items: center; gap: 12px; padding-bottom: 16px; margin-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, .08); }
+.acct-who-avatar { width: 52px; height: 52px; flex: none; border-radius: 50%; overflow: hidden; display: grid; place-items: center; font-weight: 800; font-size: 1.3rem; color: #1a1a1a; background: linear-gradient(135deg, #ff7eb3, #ffd36b); }
+.acct-who-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.acct-who-text { min-width: 0; display: flex; flex-direction: column; color: #f3eef6; }
+.acct-who-text small { color: rgba(243, 238, 246, .6); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.acct-menu { display: flex; flex-direction: column; gap: 4px; }
+.acct-menu a, .acct-logout { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; color: rgba(243, 238, 246, .8); text-decoration: none; font-weight: 600; background: none; border: 0; width: 100%; text-align: left; cursor: pointer; }
+.acct-menu a:hover, .acct-logout:hover { background: rgba(255, 255, 255, .06); color: #fff; }
+.acct-menu a.active { background: linear-gradient(90deg, rgba(255, 126, 179, .22), rgba(255, 211, 107, .22)); color: #fff; }
+.acct-logout { margin-top: 8px; border-top: 1px solid rgba(255, 255, 255, .08); border-radius: 0 0 12px 12px; padding-top: 14px; }
+.acct-main { min-width: 0; color: #f3eef6; }
+.acct-title { font-size: 1.5rem; font-weight: 800; margin: 0 0 16px; }
+.acct-card { padding: 24px; margin-bottom: 20px; }
+.acct-note { color: rgba(243, 238, 246, .7); margin-bottom: 8px; }
+.acct-sub { font-size: 1.05rem; font-weight: 700; margin: 24px 0 10px; }
+.acct-empty { padding: 20px; border: 1px dashed rgba(255, 255, 255, .2); border-radius: 14px; color: rgba(243, 238, 246, .7); }
+.acct-empty a, .acct-coupon a { color: #ffd36b; }
+.acct-coupon { display: flex; border: 1px solid rgba(255, 255, 255, .1); border-radius: 14px; overflow: hidden; margin-bottom: 10px; background: rgba(14, 11, 18, .86); }
+.acct-coupon-value { flex: none; width: 110px; display: grid; place-items: center; font-weight: 800; font-size: 1.35rem; color: #1a1a1a; background: linear-gradient(135deg, #ff7eb3, #ffd36b); }
+.acct-coupon-body { padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.acct-coupon-code { font-size: 1.05rem; letter-spacing: .03em; }
+.acct-coupon-body small { color: rgba(243, 238, 246, .55); }
+.acct-coupon.da-dung, .acct-coupon.het-han { opacity: .55; }
+.acct-coupon.da-dung .acct-coupon-value, .acct-coupon.het-han .acct-coupon-value { background: #4a4452; color: #ddd; }
+@media (max-width: 767px) {
+  .acct-wrap { grid-template-columns: 1fr; padding-top: 20px; }
+  .acct-side { position: static; }
+  .acct-menu { flex-direction: row; overflow-x: auto; gap: 6px; }
+  .acct-menu a, .acct-logout { white-space: nowrap; width: auto; }
+  .acct-logout { margin-top: 0; border-top: 0; padding-top: 10px; }
+}
+body.acct-page { background: #17121d; }
+body.acct-page main { min-height: 60vh; }
+
+/* ===== Đơn hàng trong trang tài khoản ===== */
+.acct-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.acct-tabs a { padding: 6px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.15); color: rgba(243,238,246,.8); text-decoration: none; font-weight: 600; font-size: .92rem; }
+.acct-tabs a.active { background: linear-gradient(90deg, #ff7eb3, #ffd36b); color: #1a1a1a; border-color: transparent; }
+.acct-order { display: block; padding: 16px 18px; margin-bottom: 10px; border-radius: 14px; border: 1px solid rgba(255,255,255,.1); background: rgba(14,11,18,.86); color: #f3eef6; text-decoration: none; }
+.acct-order:hover { border-color: rgba(255,211,107,.5); color: #fff; }
+.acct-order-top, .acct-order-bot { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.acct-order-mid { margin: 6px 0; color: rgba(243,238,246,.85); }
+.acct-order-bot small { color: rgba(243,238,246,.55); }
+.acct-badge { padding: 3px 10px; border-radius: 999px; font-size: .8rem; font-weight: 700; background: #4a4452; color: #eee; }
+.acct-badge.st-cho_xac_nhan { background: #ffd36b; color: #3a2b00; }
+.acct-badge.st-dang_chuan_bi { background: #8ab4ff; color: #0b2350; }
+.acct-badge.st-dang_giao { background: #c39bff; color: #2a0b50; }
+.acct-badge.st-da_giao { background: #7fe3a5; color: #07351c; }
+.acct-badge.st-da_huy { background: #ff8a8a; color: #4a0b0b; }
+.acct-back { color: #ffd36b; text-decoration: none; }
+.acct-err { padding: 10px 14px; border-radius: 10px; background: rgba(255,90,90,.15); color: #ffb3b3; margin-bottom: 12px; }
+.acct-cancelled { color: #ff9a9a; font-weight: 700; margin-bottom: 8px; }
+.acct-track { list-style: none; margin: 0 0 12px; padding: 0; display: flex; }
+.acct-track li { flex: 1; text-align: center; position: relative; color: rgba(243,238,246,.5); font-size: .88rem; }
+.acct-track li::before { content: ""; position: absolute; top: 13px; left: -50%; width: 100%; height: 3px; background: rgba(255,255,255,.15); }
+.acct-track li:first-child::before { display: none; }
+.acct-track li.done::before, .acct-track li.now::before { background: linear-gradient(90deg, #ff7eb3, #ffd36b); }
+.acct-track .dot { position: relative; z-index: 1; display: grid; place-items: center; width: 28px; height: 28px; margin: 0 auto 6px; border-radius: 50%; background: #2b2533; border: 2px solid rgba(255,255,255,.2); color: #1a1a1a; font-size: .85rem; }
+.acct-track li.done .dot { background: #ffd36b; border-color: #ffd36b; }
+.acct-track li.now .dot { background: #ff7eb3; border-color: #ff7eb3; box-shadow: 0 0 0 4px rgba(255,126,179,.25); }
+.acct-track li.done, .acct-track li.now { color: #fff; font-weight: 700; }
+.acct-line { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.08); }
+.acct-line img { width: 56px; height: 56px; object-fit: cover; border-radius: 10px; }
+.acct-line-name { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.acct-line-name a { color: #f3eef6; text-decoration: none; font-weight: 600; }
+.acct-line-name small { color: rgba(243,238,246,.55); }
+.acct-sum { margin-top: 12px; display: grid; gap: 6px; }
+.acct-sum div { display: flex; justify-content: space-between; }
+.acct-sum .total { font-weight: 800; font-size: 1.1rem; padding-top: 8px; border-top: 1px solid rgba(255,255,255,.12); }
+.acct-cancel-btn { padding: 10px 22px; border-radius: 999px; border: 1px solid #ff8a8a; background: none; color: #ff8a8a; font-weight: 700; }
+.acct-cancel-btn:hover { background: rgba(255,138,138,.12); }

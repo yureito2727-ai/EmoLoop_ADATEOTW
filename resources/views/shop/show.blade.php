@@ -178,7 +178,7 @@
             var badge = document.getElementById('cartBadge');
             if (badge) { badge.textContent = res.d.tong; badge.style.display = ''; }
             if (goCart) {
-                window.location.href = res.d.url;
+                window.location.href = res.d.thanh_toan_url || res.d.url;
                 return;
             }
             msg.textContent = 'Đã thêm ' + qty.textContent + ' × ' + {!! json_encode($sp->ten) !!} + ' vào giỏ hàng.';
@@ -202,4 +202,3 @@
 })();
 </script>
 @endpush
-

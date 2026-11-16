@@ -227,7 +227,12 @@
     });
 
     buy.addEventListener('click', function () {
-        say('Bước đặt hàng sẽ làm ở phần tiếp theo.');
+        var ids = rows()
+            .filter(function (row) { return row.querySelector('.pick').checked; })
+            .map(function (row) { return 'chon[]=' + encodeURIComponent(row.dataset.id); });
+
+        if (!ids.length) { return; }
+        window.location.href = '{{ route('thanh-toan.index') }}?' + ids.join('&');
     });
 
     refresh();

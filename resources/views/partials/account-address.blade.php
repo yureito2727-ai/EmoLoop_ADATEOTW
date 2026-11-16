@@ -202,8 +202,11 @@ document.addEventListener('DOMContentLoaded', function () {
         applyMode();
         start();
     });
-
-    modalEl.addEventListener('show.bs.modal', start);
+    if (modalEl) {
+        modalEl.addEventListener('show.bs.modal', start);
+    } else {
+        start();
+    }
     applyMode();
 });
 </script>

@@ -1,14 +1,24 @@
 @extends('layouts.app')
 
 @section('title', 'Thanh toán – Emo Loop')
+@section('body_class', 'page-thanh-toan')
 
 @section('content')
 @php
     $vnd = fn ($n) => number_format($n, 0, ',', '.') . 'đ';
     $dong = $tinh['dong'];
-    $ten = old('ten_nguoi_nhan', $user->name);
-    $sdt = old('so_dien_thoai', $user->so_dien_thoai);
-    $diaChi = old('dia_chi', '');
+    $dcLuu = $dcLuu ?? null;
+    $dcLuuChuoi = $dcLuu
+        ? implode(', ', array_filter([
+            $dcLuu->dia_chi_cu_the,
+            $dcLuu->phuong_xa,
+            $dcLuu->tinh_thanh,
+            $dcLuu->quoc_gia !== 'Việt Nam' ? $dcLuu->quoc_gia : null,
+        ]))
+        : '';
+    $ten = old('ten_nguoi_nhan', $dcLuu->ten_nguoi_nhan ?? $user->name);
+    $sdt = old('so_dien_thoai', $dcLuu->so_dien_thoai ?? $user->so_dien_thoai);
+    $diaChi = old('dia_chi', $dcLuuChuoi);
     $pt = old('phuong_thuc', 'cod');
     $suaDiaChi = $diaChi === '' || $errors->hasAny(['ten_nguoi_nhan', 'so_dien_thoai', 'dia_chi']);
 @endphp

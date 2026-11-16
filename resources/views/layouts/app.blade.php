@@ -29,16 +29,16 @@
                         @php $soGio = \App\Models\GioHang::where('user_id', auth()->id())->count(); @endphp
                         <span class="cart-badge" id="cartBadge" @if(!$soGio) style="display:none" @endif>{{ $soGio }}</span>
                         </a>
-                       <button type="button" class="avatar" data-bs-toggle="modal" data-bs-target="#accountModal" title="{{ auth()->user()->name }}" aria-label="Tài khoản">
+                       <a href="{{ route('tai-khoan.ho-so') }}" class="avatar" title="{{ auth()->user()->name }}" aria-label="Tài khoản">
                         @if (auth()->user()->avatar)
-                        <img src="{{ asset('storage/'.auth()->user()->avatar) }}" alt="Avatar">
+                         <img src="{{ asset('storage/'.auth()->user()->avatar) }}" alt="Avatar">
                         @else
-                        <span class="avatar-letter">{{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 1)) }}</span>
-                        @endif
-                        </button>
+                          <span class="avatar-letter">{{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 1)) }}</span>
+                         @endif
+                        </a>
                     <form method="POST" action="{{ url('/logout') }}" class="m-0">
                         @csrf
-                        <button type="submit" class="pill pill-outline">Đăng xuất</button>
+                    
                     </form>
                 @else
                     <a href="{{ url('/login') }}" class="pill pill-outline">Đăng nhập</a>
@@ -99,9 +99,10 @@
 </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    @stack('scripts')
+    @stack('scripts')   
     @auth
-    @include('partials.account-modal')
+    @include('partials.logout-confirm')
     @endauth
+    
 </body>
 </html>
